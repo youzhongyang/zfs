@@ -73,7 +73,8 @@ static inline struct user_namespace *zfs_i_user_ns(struct inode *inode)
 static inline boolean_t zfs_no_idmapping(struct user_namespace *mnt_userns,
     struct user_namespace *fs_userns)
 {
-	return (zfs_is_init_userns(mnt_userns) || mnt_userns == fs_userns);
+	return (mnt_userns == NULL || zfs_is_init_userns(mnt_userns) ||
+	    mnt_userns == fs_userns);
 }
 
 static inline uid_t zfs_uid_to_vfsuid(zidmap_t *mnt_userns,
